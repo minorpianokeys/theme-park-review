@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: space-between; /* Aligns h2 and button on the same line */
+    align-items: center; /* Vertically centers the h2 and button */
+    margin: 20px;
+}
+
+.header h1 {
+    margin: 0; /* Removes any default margin on the h2 */
+    flex-grow: 1; /* Allows the h2 to take up remaining space */
+    text-align: center; /* Centers the text within the available space */
+}
+
+.header button {
+    padding: 8px 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header button:hover {
+    background-color: #0056b3;
+}

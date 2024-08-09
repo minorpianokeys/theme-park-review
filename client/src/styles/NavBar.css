@@ -1,0 +1,24 @@
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #a61212;
+    padding: 10px;
+    color: white;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar a:hover {
+    background-color: #c35959;
+  }
+
+  .navbar a.active {
+    background-color: #c35959;
+  }

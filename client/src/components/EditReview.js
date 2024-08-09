@@ -39,7 +39,7 @@ function EditReview() {
 
     return(
         <div>
-            <h1>Add Review</h1>
+            <h1>Edit Review</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="rating">Rating: </label>

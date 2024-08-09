@@ -23,7 +23,7 @@ function RideInfo() {
                 <p>{height}</p>
             </div>
             <div>
-                <ReviewContainer reviews={reviews} rideId={id}/>
+                <ReviewContainer reviews={reviews} rideId={id} />
             </div>
         </div>
     )

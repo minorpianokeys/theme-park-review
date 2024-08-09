@@ -16,7 +16,7 @@ function ReviewContainer({ reviews, rideId }) {
             </div>
             <div>
                 {reviews?.map(review => (
-                    <ReviewCard key={review.id} review={review}/>
+                    <ReviewCard key={review.id} review={review} />
                 ))}
             </div>
         </div>

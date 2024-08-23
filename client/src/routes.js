@@ -5,6 +5,8 @@ import RideInfo from "./components/RideInfo";
 import AddRide from "./components/AddRide";
 import AddReview from "./components/AddReview";
 import EditReview from "./components/EditReview";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 const routes = [
     {
@@ -32,9 +34,17 @@ const routes = [
                 element: <AddReview />
             },
             {
-                path: "/reviews/:id/edit",
+                path: "/rides/:rideId/reviews/:id/edit",
                 element: <EditReview />
             },
+            {
+                path: "/signup",
+                element: <Signup />
+            },
+            {
+                path: "/login",
+                element: <Login />
+            }
         ]
     }
 ];

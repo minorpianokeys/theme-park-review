@@ -3,13 +3,14 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request
+from flask import request, session
 from flask_restful import Resource
+from sqlalchemy.exc import IntegrityError
 
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import Ride, Park, Review
+from models import Ride, Park, Review, User
 
 class Parks(Resource):
     
@@ -88,6 +89,7 @@ class Reviews(Resource):
                 rating = request.json['rating'],
                 ride_id = request.json['ride_id']
             )
+            print(new_review)
             db.session.add(new_review)
             db.session.commit()
             return new_review.to_dict(), 201
@@ -124,8 +126,63 @@ class ReviewsById(Resource):
             return {}, 204
         return {"error": "Review not found"}, 404
         
-    
 api.add_resource(ReviewsById, '/reviews/<int:id>')
+
+
+class Signup(Resource):
+
+    def post(self):
+        user = User(
+            username=request.json['username'],
+        )
+
+        user.password_hash = request.json['password']
+
+        try:
+            db.session.add(user)
+            db.session.commit()
+            session['user.id'] = user.id
+            return user.to_dict(), 201
+        
+        except IntegrityError:
+
+            return {'error': '422 Unprocessable Entity'}, 42
+
+api.add_resource(Signup, '/signup', endpoint='signup')
+
+class Login(Resource):
+    def post(self):
+        username = request.get_json()['username']
+        password = request.get_json()['password']
+
+        user = User.query.filter(User.username == username).first()
+
+        if user:
+            if user.authenticate(password):
+                session['user_id'] = user.id
+                return user.to_dict(), 200
+        
+        return {'error': '401 Unauthorized'}, 401
+    
+api.add_resource(Login, '/login')
+
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return {}, 204
+    
+api.add_resource(Logout, '/logout')
+
+class CheckSession(Resource):
+    def get(self):
+        user_id = session['user_id']
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
+            return user.to_dict(), 200
+        else:
+            return {"message": "401: Not Authorized"}, 401
+        
+api.add_resource(CheckSession, '/check_session')
 
 
 @app.route('/')

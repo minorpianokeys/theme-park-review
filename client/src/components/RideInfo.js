@@ -13,6 +13,24 @@ function RideInfo() {
         .then(r => r.json())
         .then(rideData => setRide(rideData))
     }, [])
+
+    function handleDelete(id) {
+        console.log("clicked")
+        fetch(`/reviews/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(r => {
+            if (r.ok) {
+                setRide(prevRide => ({
+                    ...prevRide,
+                    reviews: prevRide.reviews.filter(review => review.id !== id)
+                }));
+            }
+        })
+    }
     
     return (
         <div className="info-page">
@@ -23,7 +41,7 @@ function RideInfo() {
                 <p>{height}</p>
             </div>
             <div>
-                <ReviewContainer reviews={reviews} rideId={id} />
+                <ReviewContainer reviews={reviews} rideId={id} onDelete={handleDelete}/>
             </div>
         </div>
     )

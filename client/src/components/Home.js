@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router';
 import ParkContainer from './ParkContainer';
 import "../styles/Directory.css"
 
 
 function Home() {
     const [parks, setParks] = useState([]);
+    const context = useOutletContext();
+    const user = context[0]
+ 
 
     useEffect(() => {
         fetch('/parks')
@@ -13,9 +17,17 @@ function Home() {
     }, [])
 
 
+    console.log(user)
+
     return (
         <div>
-            <h1 className='header'>Welcome to Theme Park Directory</h1>
+            <header className="header">
+            {user ? (
+                <h1>Welcome {user.username}</h1>
+            ): (
+                <h1>Welcome to Theme Park Directory</h1>
+            )}
+            </header>
             <ParkContainer parks={parks}/>
         </div>
     )

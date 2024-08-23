@@ -1,34 +1,27 @@
+import ReactStars from 'react-stars'
 import { useNavigate } from "react-router";
-import "../styles/ReviewCard.css"
+import "../styles/Reviews.css"
+import React from 'react';
 
-function ReviewCard({ review }) {
+function ReviewCard({ review, rideId, onDelete }) {
     const { id, title, body, rating } = review;
     const navigate = useNavigate();
 
-    function handleClick(id) {
-        navigate(`/reviews/${id}/edit`)
+    function handleEditClick() {
+        navigate(`/rides/${rideId}/reviews/${id}/edit`)
     }
 
-    function handleDelete(id) {
-        console.log("clicked")
-        fetch(`/reviews/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(console.log("deleted"))
-    }
+    
 
     return(
         <div className="review-card">
             <div className="card-actions">
-                <button className="edit-btn" onClick={() => handleClick(id)}>✏️</button>
-                <button className="delete-btn" onClick={() => handleDelete(id)}>🗑️</button>
+                <button className="edit-btn" onClick={() => handleEditClick()}>✏️</button>
+                <button className="delete-btn" onClick={() => onDelete(id)}>🗑️</button>
             </div>
             <div className="title-rating">
                 <h3>{title}</h3>
-                <h4>{rating}</h4>
+                <ReactStars value={rating} edit={false}/>
             </div>
             <p>{body}</p>
         </div>

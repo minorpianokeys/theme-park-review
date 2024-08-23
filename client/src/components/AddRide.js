@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router";
+import "../styles/Form.css"
 
 function AddRide() {
     const params = useParams();
@@ -13,11 +14,6 @@ function AddRide() {
         height: "",
     });
 
-    // useEffect(() => {
-    //     fetch(`/parks/${params.id}`)
-    //     .then(r => r.json())
-    //     .then((parkData) => setPark(parkData))
-    // })
 
     function handleChange(e) {
         setFormData({
@@ -46,10 +42,10 @@ function AddRide() {
     }
 
     return(
-        <div>
+        <div className="form-container">
             <h1>Add New Ride</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="form-group">
                     <label htmlFor="name">Name: </label>
                     <input 
                       type="text" 
@@ -58,7 +54,7 @@ function AddRide() {
                       onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="image">Image: </label>
                     <input 
                       type="text"
@@ -67,7 +63,7 @@ function AddRide() {
                       onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="description">Description: </label>
                     <input 
                       type="text" 
@@ -76,7 +72,7 @@ function AddRide() {
                       onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="height">Height: </label>
                     <input
                       type="text"

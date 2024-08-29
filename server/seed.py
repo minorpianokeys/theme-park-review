@@ -112,35 +112,8 @@ if __name__ == '__main__':
             image = "https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/715/715/75/vision-dam/digital/parks-platform/parks-global-assets/disney-world/attractions/tree-of-life/tree-of-life-gallery01-1x1.jpg?2022-03-10T19:45:10+00:00"
         )
 
-
-
-
-        review1 = Review(
-            title = "WOW",
-            body = "This ride is amazing",
-            rating = "5",
-            ride_id = "1",
-        )
-        review2 = Review(
-            title = "So dark",
-            body = "wow this ride is dark",
-            rating = "4",
-            ride_id = "2",
-        )
-        review3 = Review(
-            title = "disco yeti",
-            body = "FIX THE YETI!!!!",
-            rating = "3",
-            ride_id = "7",
-        )
-        review4 = Review(
-            title = "ow!!",
-            body = "This ride hurts :(",
-            rating = "2",
-            ride_id = "2",
-        )
         print('Adding Ride Objects to DB...')
-        db.session.add_all([guardians, space_mountain, mk, epcot, hs, dak, flight, navi_river, kili_safari, kali_river, expedition, dinosaur, review1, review2, review3, review4])
+        db.session.add_all([guardians, space_mountain, mk, epcot, hs, dak, flight, navi_river, kili_safari, kali_river, expedition, dinosaur,])
         print('Committing to DB...')
         db.session.commit()
         print('Complete.')

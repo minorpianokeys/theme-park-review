@@ -18,8 +18,7 @@ class Ride(db.Model, SerializerMixin):
 
     reviews = db.relationship('Review', back_populates='ride', cascade='all, delete-orphan')
     
-    serialize_rules = ('-park.rides',)
-    serialize_rules = ('-reviews.ride',)
+    serialize_rules = ('-park.rides', '-reviews.ride', '-reviews.user',)
 
 class Park(db.Model, SerializerMixin):
     __tablename__ = 'parks'
@@ -30,7 +29,7 @@ class Park(db.Model, SerializerMixin):
 
     rides = db.relationship('Ride', back_populates='park', cascade='all, delete-orphan')
 
-    serialize_rules = ('-rides.park',)
+    serialize_rules = ('-rides.park', '-rides.reviews',)
 
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
@@ -39,6 +38,7 @@ class Review(db.Model, SerializerMixin):
     title = db.Column(db.String)
     body = db.Column(db.String)
     rating = db.Column(db.Integer)
+    username = db.Column(db.String)
 
     ride_id = db.Column(db.Integer, db.ForeignKey('rides.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -46,8 +46,7 @@ class Review(db.Model, SerializerMixin):
     ride = db.relationship('Ride', back_populates='reviews')
     user = db.relationship('User', back_populates='reviews')
 
-    serialize_rules = ('-rides.review',)
-    serialize_rules = ('-users.review',)
+    serialize_rules = ('-rides.review', '-users.review',)
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -58,7 +57,7 @@ class User(db.Model, SerializerMixin):
 
     reviews = db.Relationship('Review', back_populates='user', cascade='all, delete-orphan')
 
-    serialize_rules = ('-reviews.user',)
+    serialize_rules = ('-reviews.user', '-reviews.ride',)
 
     @hybrid_property
     def password_hash(self):

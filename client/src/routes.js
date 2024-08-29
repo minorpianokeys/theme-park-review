@@ -7,6 +7,7 @@ import AddReview from "./components/AddReview";
 import EditReview from "./components/EditReview";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import AllRides from "./components/AllRides";
 
 const routes = [
     {
@@ -16,6 +17,10 @@ const routes = [
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "/rides",
+                element: <AllRides />
             },
             {
                 path: "/parks/:id",

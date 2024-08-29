@@ -7,17 +7,13 @@ import "../styles/Directory.css"
 function Home() {
     const [parks, setParks] = useState([]);
     const context = useOutletContext();
-    const user = context[0]
+    const user = context[0];
  
-
     useEffect(() => {
         fetch('/parks')
         .then(r => r.json())
         .then(parkData => setParks(parkData))
     }, [])
-
-
-    console.log(user)
 
     return (
         <div>

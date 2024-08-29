@@ -38,7 +38,7 @@ function RideInfo() {
             <div className="content">
                 <h2>{name}</h2>
                 <p>{description}</p>
-                <p>{height}</p>
+                <p>Height: {height} inches</p>
             </div>
             <div>
                 <ReviewContainer reviews={reviews} rideId={id} onDelete={handleDelete}/>

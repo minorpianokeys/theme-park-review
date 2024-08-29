@@ -87,7 +87,9 @@ class Reviews(Resource):
                 title = request.json['title'],
                 body = request.json['body'],
                 rating = request.json['rating'],
-                ride_id = request.json['ride_id']
+                username = request.json['username'],
+                ride_id = request.json['ride_id'],
+                user_id = request.json['user_id']
             )
             print(new_review)
             db.session.add(new_review)

@@ -1,11 +1,14 @@
 import ReactStars from 'react-stars'
-import { useNavigate } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import "../styles/Reviews.css"
 import React from 'react';
 
 function ReviewCard({ review, rideId, onDelete }) {
-    const { id, title, body, rating } = review;
+    const { id, title, body, rating, username, user_id } = review;
     const navigate = useNavigate();
+    const context = useOutletContext();
+    const user = context[0];
+    console.log(user)
 
     function handleEditClick() {
         navigate(`/rides/${rideId}/reviews/${id}/edit`)
@@ -15,10 +18,17 @@ function ReviewCard({ review, rideId, onDelete }) {
 
     return(
         <div className="review-card">
-            <div className="card-actions">
+            {user?.id == user_id ? (
+                <div className="card-actions">
+                
                 <button className="edit-btn" onClick={() => handleEditClick()}>✏️</button>
                 <button className="delete-btn" onClick={() => onDelete(id)}>🗑️</button>
             </div>
+            ) : (
+                <div>
+                </div>
+            )}
+            <h4>{username}</h4>
             <div className="title-rating">
                 <h3>{title}</h3>
                 <ReactStars value={rating} edit={false}/>

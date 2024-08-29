@@ -5,9 +5,8 @@ import "../styles/Form.css"
 
 function Login() {
     const navigate = useNavigate();
-    const user = useOutletContext();
-    const setUser = user[1]
-    console.log(user[1])
+    const context = useOutletContext();
+    const setUser = context[1]
 
     const [formData, setFormData] = useState({
         username: "",
@@ -34,7 +33,8 @@ function Login() {
             },
             body: JSON.stringify(newUser)
         })
-        .then(setUser(newUser))
+        .then(r => r.json())
+        .then(user => setUser(user))
         .then(() => navigate("/"))
     }
 

@@ -8,6 +8,7 @@ import EditReview from "./components/EditReview";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import AllRides from "./components/AllRides";
+import AddPark from "./components/AddPark";
 
 const routes = [
     {
@@ -17,6 +18,10 @@ const routes = [
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "/park/new",
+                element: <AddPark />
             },
             {
                 path: "/rides",

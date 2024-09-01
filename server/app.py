@@ -49,6 +49,7 @@ class Rides(Resource):
         return rides, 200
     
     def post(self):
+        
         try:
             new_ride = Ride(
                 name = request.json['name'],
@@ -57,7 +58,6 @@ class Rides(Resource):
                 height = request.json['height'],
                 park_id = request.json['park_id']
             )
-
             db.session.add(new_ride)
             db.session.commit()
             return new_ride.to_dict(), 201
@@ -148,7 +148,7 @@ class Signup(Resource):
         
         except IntegrityError:
 
-            return {'error': '422 Unprocessable Entity'}, 42
+            return {'error': '422 Unprocessable Entity'}, 422
 
 api.add_resource(Signup, '/signup', endpoint='signup')
 

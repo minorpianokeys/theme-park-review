@@ -8,13 +8,10 @@ function ReviewCard({ review, rideId, onDelete }) {
     const navigate = useNavigate();
     const context = useOutletContext();
     const user = context[0];
-    console.log(user)
 
     function handleEditClick() {
         navigate(`/rides/${rideId}/reviews/${id}/edit`)
     }
-
-    
 
     return(
         <div className="review-card">

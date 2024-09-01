@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -9,64 +8,12 @@ function AddRide() {
     const parkId = params.id;
     const navigate = useNavigate();
 
-    // const [formData, setFormData] = useState({
-    //     name: "",
-    //     image: "",
-    //     description: "",
-    //     height: "",
-    // });
-
-
-    // function handleChange(e) {
-    //     setFormData({
-    //         ...formData,
-    //         [e.target.id]: e.target.value
-    //     })
-    // }
-
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     const newRide = {
-    //         name: formData.name,
-    //         image: formData.image,
-    //         description: formData.description,
-    //         height: formData.height,
-    //         park_id: parkId,
-    //     }
-    //     fetch("/rides", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(newRide)
-    //     })
-    //     .then(navigate(`/parks/${parkId}`))
-    // }
-
-    // const formik = useFormik({
-    //     initialValues: {
-    //         name: "",
-    //         image: "",
-    //         description: "",
-    //         height: "",
-    //     },
-    //     // validationSchema: formSchema,
-    // onSubmit: (values) => {
-    //       fetch("/rides", {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(values, null, 2),
-    //       }).then(
-    //         (res) => {
-    //           if (res.status == 200){
-    //             (navigate(`/parks/${parkId}`))
-    //           }
-    //         }
-    //       )
-    //     },
-    //   });
+    const formSchema = yup.object().shape({
+        name: yup.string().required("Must enter a name").max(25),
+        image: yup.string().required("Must enter an image"),
+        description: yup.string().required("Must enter a description"),
+        height: yup.number().positive().integer().required("Must enter a positive number").typeError("Must be a positive number").max(60)
+    })
 
     const formik = useFormik({
         initialValues: {
@@ -74,10 +21,10 @@ function AddRide() {
             image: "",
             description: "",
             height: "",
+            park_id: parkId,
         },
-        onSubmit: values => {
-            console.log(JSON.stringify(values))
-            console.log("fetching...")
+        validationSchema: formSchema,
+        onSubmit: (values) => {
             fetch("/rides", {
                 method: "POST",
                 headers: {
@@ -85,7 +32,7 @@ function AddRide() {
                 },
                 body: JSON.stringify(values)
                 })
-            .then(navigate(`/parks/${parkId}`))
+            .then(() => navigate(`/parks/${parkId}`))
         }
     })
 
@@ -94,6 +41,7 @@ function AddRide() {
             <h1>Add New Ride</h1>
             <form onSubmit={formik.handleSubmit}>
                 <div className="form-group">
+                    <p style={{color:'red'}}>{formik.errors.name}</p>
                     <label htmlFor="name">Name: </label>
                     <input 
                       type="text" 
@@ -104,6 +52,7 @@ function AddRide() {
                     />
                 </div>
                 <div className="form-group">
+                    <p style={{color:'red'}}>{formik.errors.image}</p>
                     <label htmlFor="image">Image: </label>
                     <input 
                       type="text"
@@ -114,6 +63,7 @@ function AddRide() {
                     />
                 </div>
                 <div className="form-group">
+                    <p style={{color:'red'}}>{formik.errors.description}</p>
                     <label htmlFor="description">Description: </label>
                     <input 
                       type="text" 
@@ -124,6 +74,7 @@ function AddRide() {
                     />
                 </div>
                 <div className="form-group">
+                    <p style={{color:'red'}}>{formik.errors.height}</p>
                     <label htmlFor="height">Height: </label>
                     <input
                       type="text"

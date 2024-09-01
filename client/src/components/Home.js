@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router';
+import { useOutletContext, useNavigate } from 'react-router';
 import ParkContainer from './ParkContainer';
 import "../styles/Directory.css"
 
 
 function Home() {
     const [parks, setParks] = useState([]);
+    const navigate = useNavigate();
     const context = useOutletContext();
     const user = context[0];
  
@@ -15,6 +16,10 @@ function Home() {
         .then(parkData => setParks(parkData))
     }, [])
 
+    function handleClick() {
+        navigate("/park/new")
+    }
+
     return (
         <div>
             <header className="header">
@@ -23,6 +28,7 @@ function Home() {
             ): (
                 <h1>Welcome to Theme Park Directory</h1>
             )}
+            <button onClick={() => handleClick()}>+</button>
             </header>
             <ParkContainer parks={parks}/>
         </div>

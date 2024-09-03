@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Ride, Park, Review
+from models import db, Ride, Park, Review, User
 
 # Ride(
 #         name = "",
@@ -27,6 +27,7 @@ if __name__ == '__main__':
         Ride.query.delete()
         Park.query.delete()
         Review.query.delete()
+        User.query.delete()
         print("Starting seed...")
         guardians = Ride(
             name = "Guardians of the Galaxy: Cosmic Rewind",
